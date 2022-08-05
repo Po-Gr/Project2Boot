@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список книг</title>
+    <link th:href="@{/static/css/allBooks.css}" rel="stylesheet" />
+</head>
+<body>
+
+<div class="container">
+    <div class="link_box">
+        <a class="link" th:href="@{/library/people}">К списку читателей</a>
+        <a class="link" th:href="@{/library}">В библиотеку</a>
+    </div>
+
+    <h3>Книги доступные для чтения</h3>
+
+<!--    <form th:method="GET" th:action="@{/library/books/search}" th:object="${searchBy}">-->
+<!--        <label for="title">Введите название книги: </label>-->
+<!--        <input class="input" type="text" th:field="*{title}" id="title"/>-->
+<!--        <input class="search" type="submit" value="Искать"/>-->
+<!--        <div class="err" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">error</div>-->
+<!--    </form>-->
+
+    <form th:method="GET" th:action="@{/library/books/search}" th:object="${searchBy}">
+        <input class="input" type="search" th:field="*{title}" id="title" placeholder="Введите название.. "/>
+        <input class="search" type="submit" value="🔍"/>
+    </form>
+
+    <p th:if="${books.isEmpty()}">Книг не найдено, проверьте Ваш запрос</p>
+
+    <div th:each="book :${books}">
+        <a class="book_link2" th:href="@{/library/books/{id}(id=${book.getId()})}"
+           th:text="${book.getTitle() + ', '}">book</a>
+        <a th:text="${book.getAuthor() + ', ' + book.getYear()}">VALUE</a>
+
+        <br>
+
+        <a th:if="${book.getReader}"
+           th:text="${'Книга сейчас у: '}">value</a>
+
+        <a class="text" th:if="${book.getReader}"
+           th:text="${book.getReader.getFullName()}">value</a>
+
+        <a th:unless="${book.getReader}">Книга свободна</a>
+        <hr>
+    </div>
+
+</div>
+
+</body>
+</html>

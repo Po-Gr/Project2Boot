@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список книг</title>
+    <link th:href="@{/static/css/allBooks.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="link_box">
+        <a class="link" th:href="@{/library/people}">К списку читателей</a>
+        <a class="link" th:href="@{/library}">В библиотеку</a>
+    </div>
+
+    <h3>Книги доступные для чтения</h3>
+
+    <form th:method="GET" th:action="@{/library/books/search}" th:object="${searchBy}">
+        <input class="input" type="search" th:field="*{title}" id="title" placeholder="Введите название.. "/>
+        <input class="search" type="submit" value="🔍"/>
+    </form>
+
+    <div th:each="book :${books}">
+        <a class="book_link" th:href="@{/library/books/{id}(id=${book.getId()})}"
+           th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</a>
+    </div>
+
+    <a class="link2" th:if="${paging.getHasPrevious()}"
+       th:href="@{/library/books?page={page}&items_per_page={items_per_page}&sort_by_year={sort_by_year}
+       (page=${paging.getPage() - 1},items_per_page=${paging.getItemsPerPage()},sort_by_year=${paging.getSortByYear()})}">←previous</a>
+
+    <a class="link2" th:if="${paging.getHasNext()}"
+       th:href="@{/library/books?page={page}&items_per_page={items_per_page}&sort_by_year={sort_by_year}
+       (page=${paging.getPage() + 1},items_per_page=${paging.getItemsPerPage()},sort_by_year=${paging.getSortByYear()})}">next→</a>
+
+    <hr>
+    <br>
+
+    <a class="add" th:href="@{/library/books/new}">Добавить книгу</a>
+</div>
+
+</body>
+</html>

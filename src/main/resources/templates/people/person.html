@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Человек</title>
+    <link th:href="@{/static/css/person.css}" rel="stylesheet" />
+</head>
+<body>
+
+<div class="container">
+    <div class="link_box">
+        <a class="link" th:href="@{/library/people}">К списку читателей</a>
+        <a class="link" th:href="@{/library/books}">К списку книг</a>
+        <a class="link" th:href="@{/library}">В библиотеку</a>
+    </div>
+
+    <h3 th:text="${person.getFullName() + ', ' + person.getBirthYear()}">VALUE</h3>
+
+    <p class="none_book" th:if="${empty}">Человек пока не взял ни одной книги</p>
+
+    <div class="books" th:unless="${empty}">
+        <br>
+        <a class="with" >Книги:</a>
+        <div th:each="book :${books}">
+            <a class="exp" th:if="${book.getExpired()}" th:href="@{/library/books/{id}(id=${book.getId()})}"
+               th:text="${book.getTitle() + ', ' + book.getAuthor()}">Есть книги</a>
+            <a class="good" th:unless="${book.getExpired()}" th:href="@{/library/books/{id}(id=${book.getId()})}"
+               th:text="${book.getTitle() + ', ' + book.getAuthor()}">Есть книги</a>
+        </div>
+        <br>
+    </div>
+
+    <div class="box">
+        <form th:method="GET" th:action="@{/library/people/{id}/edit(id=${person.getId()})}">
+            <input class="upd" type="submit" value="Редактировать"/>
+        </form>
+
+        <form th:method="GET" th:action="@{/library/people/{id}/delete(id=${person.getId()})}">
+            <input class="del" type="submit" value="Удалить"/>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

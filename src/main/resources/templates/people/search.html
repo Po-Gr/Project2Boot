@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список читателей</title>
+    <link th:href="@{/static/css/allPeople.css}" rel="stylesheet" />
+</head>
+<body>
+
+<div class="container">
+    <div class="link_box">
+        <a class="link" th:href="@{/library/books}">К списку книг</a>
+        <a class="link" th:href="@{/library}">В библиотеку</a>
+    </div>
+
+    <h3>Читатели библиотеки</h3>
+
+    <form th:method="GET" th:action="@{/library/people/search}" th:object="${searchBy}">
+        <input class="input" type="search" th:field="*{fullName}" id="fullName" placeholder="Введите имя.. "/>
+        <input class="search" type="submit" value="🔍"/>
+    </form>
+
+    <p th:if="${people.isEmpty()}">Читателей не найдено, проверьте Ваш запрос</p>
+
+    <div th:each="person:${people}">
+        <a class="per_link" th:href="@{/library/people/{id}(id=${person.getId()})}"
+           th:text="${person.getFullName() + ', ' + person.getBirthYear()}">book</a>
+        <a th:if="${person.getDebtor()}" th:text="${' ДОЛЖНИК'}">book</a>
+    </div>
+
+</div>
+
+</body>
+</html>
