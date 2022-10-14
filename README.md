@@ -1,6 +1,6 @@
 # Project2Boot
 
-Sprind Boot CRUD приложение "Библиотека", с применением технологий:
+Spring Boot CRUD приложение "Библиотека", с применением технологий:
 - Hibernate
 - Spring(Core, MVC, Validation, Data JPA, Boot)
 - Настройка представления HTML, Thymeleaf, CSS
