@@ -88,10 +88,10 @@ public class BookController {
         return "redirect:.";
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/free")
     public String setFree(@PathVariable("id")int id) {
         booksService.setFree(id);
-        return "redirect:";
+        return "redirect:.";
     }
 
     @PatchMapping("/{id}/add")

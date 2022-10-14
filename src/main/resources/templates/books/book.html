@@ -17,7 +17,7 @@
     <h3 th:text="${book.getTitle() + ', '}">VALUE</h3>
     <h2 th:text="${book.getAuthor() + ', ' + book.getYear()}">VALUE</h2>
 
-    <form th:if="${reader}" th:method="PUT" th:action="@{/library/books/{id}(id=${book.getId()})}">
+    <form th:if="${reader}" th:method="PUT" th:action="@{/library/books/{id}/free(id=${book.getId()})}">
         <a class="text" th:text="${'Книга сейчас у: '}">value</a>
         <a class="reader" th:text="${reader.getFullName()}">value</a>
         <input class="free" type="submit" value="Освободить"/>
